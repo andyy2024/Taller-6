@@ -1,0 +1,12 @@
+-------------------------
+FACTURA No. 0
+PRODUCTOS
+Nombre: adsf
+Direccion: asdf
+
+    papas medianas
+    --->5500.0
+Costo Neto 5500
+IVA 1045.0
+Costo Total 6545.0
+-------------------------
