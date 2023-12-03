@@ -49,9 +49,6 @@ public class Aplicacion {
     // Reset
     private static final String RESET = "\u001B[0m";
 
-    
-    
-    
     static Restaurante restaurante;
 
     static String Colorear(String text, String color) {
@@ -244,7 +241,7 @@ public class Aplicacion {
 
     static void mostrarFactura() {
         int numero = Integer.parseInt(input("Por favor ingresa el numero de tu factura"));
-        String rutaArchivo = ".//src//Facturas//" + numero + ".txt";
+        String rutaArchivo = ".//data//Facturas//" + numero + ".txt";
 
         try {
             Desktop desktop = Desktop.getDesktop();
@@ -277,8 +274,8 @@ public class Aplicacion {
     }
 
     public static void main(String[] args) {
-    	
-    	try {
+
+        try {
             restaurante = new Restaurante();
         } catch (IOException e) {
             e.printStackTrace();
@@ -287,8 +284,8 @@ public class Aplicacion {
         } catch (ProductoRepetidoException e) {
             e.printStackTrace();
         }
-    	
-    	boolean seguir = true;
+
+        boolean seguir = true;
 
         int opcion_seleccionada = 0;
         while (seguir) {

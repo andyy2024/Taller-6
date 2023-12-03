@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import Exceptions.ValorMaximoException;
 
-public class Pedido  {
+public class Pedido {
 
     public ArrayList<Producto> listaProductos;
 
@@ -52,7 +52,7 @@ public class Pedido  {
 
     public File generarTextoFactura() {
 
-        String filePath = ".//src//Facturas//" + idPedido + ".txt";
+        String filePath = ".//data//Facturas//" + idPedido + ".txt";
 
         try {
             FileWriter fileWriter = new FileWriter(filePath);
@@ -87,7 +87,7 @@ public class Pedido  {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
-    return new File(filePath);
+
+        return new File(filePath);
     }
 }
