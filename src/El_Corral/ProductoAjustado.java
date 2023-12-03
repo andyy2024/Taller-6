@@ -27,7 +27,8 @@ public class ProductoAjustado implements Producto {
     }
 
     @Override
-    public void generarTextoFactura() {
+    public String generarTextoFactura() {
+    	return "    " + nombre + "\n" + "    --->" + precio;
     }
 
 }

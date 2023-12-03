@@ -7,6 +7,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import Exceptions.IngredienteRepetidoException;
+import Exceptions.ProductoRepetidoException;
+import Exceptions.ValorMaximoException;
+
 import java.util.HashMap;
 
 public class Restaurante {
@@ -23,7 +28,7 @@ public class Restaurante {
 
     HashMap<String, Double> mapaDePrecios;
 
-    public Restaurante() throws IOException {
+    public Restaurante() throws IOException, IngredienteRepetidoException, ProductoRepetidoException {
         this.menu = new ArrayList<>();
         this.ingredientes = new ArrayList<>();
         this.combos = new ArrayList<>();
@@ -58,19 +63,16 @@ public class Restaurante {
 
     }
 
-    public void agregarProducto(Producto producto) {
+    public void agregarProducto(Producto producto) throws ValorMaximoException {
         pedidoEnCurso.agregarProducto(producto);
-        ;
-
     }
 
     public void guardarFactura(File archivo) {
-
+    	//useless function
     }
 
     public ArrayList<ProductoMenu> getMenuBase() {
         return menu;
-
     }
 
     public ArrayList<Ingrediente> getIngredientes() {
@@ -81,21 +83,22 @@ public class Restaurante {
         return combos;
     }
 
-    public void cargarInformacionRestaurante() throws IOException {
+    public void cargarInformacionRestaurante()
+            throws IOException, IngredienteRepetidoException, ProductoRepetidoException {
         cargarIngredientes(".//data//ingredientes.txt");
         cargarMenu(".//data//menu.txt");
     }
 
-    public void cargarIngredientes(String nombreArchivo) throws IOException {
+    public void cargarIngredientes(String nombreArchivo) throws IOException, IngredienteRepetidoException {
         BufferedReader br = new BufferedReader(new FileReader(nombreArchivo));
         String linea = br.readLine();
         while (linea != null) {
             String[] partes = linea.split(";");
             Ingrediente nuevoIngrediente = new Ingrediente(partes[0], Integer.parseInt(partes[1]));
 
-            //Exception
-            if (ingredientes.contains(nuevoIngrediente)){
-                throw new IngredienteRepetidoException("Ups! Hay un ingrediente repetido" + nuevoIngrediente.getNombre())
+            // Exception
+            if (ingredientes.contains(nuevoIngrediente)) {
+                throw new IngredienteRepetidoException(nuevoIngrediente.getNombre());
             }
 
             ingredientes.add(nuevoIngrediente);
@@ -104,16 +107,16 @@ public class Restaurante {
         br.close();
     }
 
-    public void cargarMenu(String nombreArchivo) throws IOException {
+    public void cargarMenu(String nombreArchivo) throws IOException, ProductoRepetidoException {
         BufferedReader br = new BufferedReader(new FileReader(nombreArchivo));
         String linea = br.readLine();
         while (linea != null) {
             String[] partes = linea.split(";");
             ProductoMenu nuevoProducto = new ProductoMenu(partes[0], Integer.parseInt(partes[1]));
             
-            //Exception
-            if (menu.contains(nuevoProducto)){
-                throw new ProductoRepetidoException("Ups! Hay un produto repetido" + nuevoProducto.getNombre())
+            // Exception
+            if (menu.contains(nuevoProducto)) {
+                throw new ProductoRepetidoException(nuevoProducto.getNombre());
             }
 
             menu.add(nuevoProducto);

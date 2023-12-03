@@ -5,5 +5,5 @@ public interface Producto {
 
     String getNombre();
 
-    void generarTextoFactura();
+    String generarTextoFactura();
 }

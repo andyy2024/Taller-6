@@ -10,7 +10,7 @@ public class Combo implements Producto {
     private String bebida;
     private String papas;
 
-    Combo(String nombre, double descuento, String hamburguesa, String bebida, String papas,
+    public Combo(String nombre, double descuento, String hamburguesa, String bebida, String papas,
             HashMap<String, Double> mapaDePrecios) {
         this.descuento = descuento;
         this.nombre = nombre;
@@ -20,14 +20,10 @@ public class Combo implements Producto {
         this.precio = calcularPrecio(mapaDePrecios);
     }
 
-    double calcularPrecio(HashMap<String, Double> mapaDePrecios) {
+    public double calcularPrecio(HashMap<String, Double> mapaDePrecios) {
         double total = mapaDePrecios.get(bebida) + mapaDePrecios.get(hamburguesa) + mapaDePrecios.get(papas);
         total = total * (1 - descuento / 100);
         return Math.round(total * Math.pow(10, 2)) / Math.pow(10, 2);
-    }
-
-    void agregarItemACombo(Producto itemCombo) {
-        // useless function
     }
 
     public String getBebida() {
@@ -53,6 +49,7 @@ public class Combo implements Producto {
     }
 
     @Override
-    public void generarTextoFactura() {
+    public String generarTextoFactura() {
+    	return "    " + nombre + "\n" + "    --->" + precio;
     }
 }

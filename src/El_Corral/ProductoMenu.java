@@ -5,7 +5,7 @@ public class ProductoMenu implements Producto {
     private String nombre;
     private int precioBase;
 
-    ProductoMenu(String nombre, int precioBase) {
+    public ProductoMenu(String nombre, int precioBase) {
         this.nombre = nombre;
         this.precioBase = precioBase;
     }
@@ -20,6 +20,25 @@ public class ProductoMenu implements Producto {
     }
 
     @Override
-    public void generarTextoFactura() {
+    public String generarTextoFactura() {
+    	return "    " + nombre + "\n" + "    --->" + precioBase;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+    	
+        // Check if the object is null or of a different class
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        
+        ProductoMenu newObj = (ProductoMenu) obj;
+                
+        if (newObj.nombre.equals(this.nombre)) {
+        	return true;
+        }
+        
+        return false;
+
     }
 }

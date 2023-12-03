@@ -1,12 +1,12 @@
 -------------------------
 FACTURA No. 0
 PRODUCTOS
-Nombre: adsf
-Direccion: asdf
+Nombre: Hanni
+Direccion: NewJeans
 
-    papas medianas
-    --->5500.0
-Costo Neto 5500
-IVA 1045.0
-Costo Total 6545.0
+    corral queso
+    --->16000
+Costo Neto 16000
+IVA 3040.0
+Costo Total 19040.0
 -------------------------

@@ -15,17 +15,51 @@ import El_Corral.Pedido;
 import El_Corral.ProductoAjustado;
 import El_Corral.ProductoMenu;
 import El_Corral.Restaurante;
+import Exceptions.IngredienteRepetidoException;
+import Exceptions.ProductoRepetidoException;
+import Exceptions.ValorMaximoException;
 
 public class Aplicacion {
 
+    // Colorsitos normales
+    private static final String BLACK = "\u001B[30m";
+    private static final String RED = "\u001B[31m";
+    private static final String GREEN = "\u001B[32m";
+    private static final String YELLOW = "\u001B[33m";
+    private static final String BLUE = "\u001B[34m";
+    private static final String MAGENTA = "\u001B[35m";
+    private static final String CYAN = "\u001B[36m";
+    private static final String WHITE = "\u001B[37m";
+
+    // Colorsitos brillantes ^-^
+    private static final String BRIGHT_BLACK = "\u001B[30;1m";
+    private static final String BRIGHT_RED = "\u001B[31;1m";
+    private static final String BRIGHT_GREEN = "\u001B[32;1m";
+    private static final String BRIGHT_YELLOW = "\u001B[33;1m";
+    private static final String BRIGHT_BLUE = "\u001B[34;1m";
+    private static final String BRIGHT_MAGENTA = "\u001B[35;1m";
+    private static final String BRIGHT_CYAN = "\u001B[36;1m";
+    private static final String BRIGHT_WHITE = "\u001B[37;1m";
+
+    // Estilos
+    private static final String BOLD = "\u001B[1m";
+    private static final String UNDERLINE = "\u001B[4m";
+    private static final String ITALIC = "\u001B[3m";
+
+    // Reset
+    private static final String RESET = "\u001B[0m";
+
+    
+    
+    
     static Restaurante restaurante;
 
-    static {
-        try {
-            restaurante = new Restaurante();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    static String Colorear(String text, String color) {
+        return color + text + RESET;
+    }
+
+    static String Colorear(String text, String color, String estilo) {
+        return estilo + color + text + RESET;
     }
 
     static void mostrarMenu() {
@@ -63,7 +97,8 @@ public class Aplicacion {
             if (respuesta == 4) {
                 restaurante.cerrarYGuardarPedido();
                 System.out
-                        .println("Listo! Tu pedido quedo guardado, consulta la factura en nuestro menu principal >-<");
+                        .println(
+                                "\nListo! Tu pedido quedo guardado, consulta la factura en nuestro menu principal >-<");
                 System.out.println("RECUERDA, tu numero de factura es " + restaurante.getPedidoEnCurso().idPedido);
                 break;
             }
@@ -95,8 +130,13 @@ public class Aplicacion {
                 System.out.println("Ese numero no esta en el menu >:(");
                 System.out.println("Escoje una opcion valida ^-^");
             } else {
-                restaurante.agregarProducto(menu.get(respuesta));
-                System.out.println("Bien! se agregó " + menu.get(respuesta).getNombre() + " a tu pedido!");
+                try {
+                    restaurante.agregarProducto(menu.get(respuesta));
+                    System.out.println("Bien! se agregó " + menu.get(respuesta).getNombre() + " a tu pedido!");
+
+                } catch (ValorMaximoException e) {
+                    System.out.println(e.getMessage());
+                }
             }
 
         }
@@ -129,8 +169,13 @@ public class Aplicacion {
                 System.out.println("Ese numero no esta en el menu >:(");
                 System.out.println("Escoje una opcion valida ^-^");
             } else {
-                restaurante.agregarProducto(menu.get(respuesta));
-                System.out.println("Bien! se agregó " + menu.get(respuesta).getNombre() + " a tu pedido!");
+                try {
+                    restaurante.agregarProducto(menu.get(respuesta));
+                    System.out.println("Bien! se agregó " + menu.get(respuesta).getNombre() + " a tu pedido!");
+
+                } catch (ValorMaximoException e) {
+                    System.out.println(e.getMessage());
+                }
             }
 
         }
@@ -164,13 +209,25 @@ public class Aplicacion {
                         .parseInt(input("\nIngresa 1 para agregarlo como adicion, o 0 para quitarlo de tu pedido"));
                 if (respuesta2 == 1) {
                     boolean adicion = true;
-                    restaurante.agregarProducto(new ProductoAjustado(menu.get(respuesta), adicion));
-                    System.out
-                            .println("Bien! se agregó adicion de " + menu.get(respuesta).getNombre() + " a tu pedido!");
+                    try {
+                        restaurante.agregarProducto(new ProductoAjustado(menu.get(respuesta), adicion));
+                        System.out.println(
+                                "Bien! se agregó adicion de " + menu.get(respuesta).getNombre() + " a tu pedido!");
+                    } catch (ValorMaximoException e) {
+                        System.out.println(e.getMessage());
+                    }
+
                 } else if (respuesta2 == 0) {
                     boolean adicion = false;
-                    restaurante.agregarProducto(new ProductoAjustado(menu.get(respuesta), adicion));
-                    System.out.println("Bien! se agregó un sin " + menu.get(respuesta).getNombre() + " a tu pedido!");
+                    try {
+                        restaurante.agregarProducto(new ProductoAjustado(menu.get(respuesta), adicion));
+                        System.out
+                                .println("Bien! se agregó un sin " + menu.get(respuesta).getNombre() + " a tu pedido!");
+
+                    } catch (ValorMaximoException e) {
+                        System.out.println(e.getMessage());
+
+                    }
                 } else {
                     System.out.println("\nSelecciona una opcion valida");
                 }
@@ -220,8 +277,19 @@ public class Aplicacion {
     }
 
     public static void main(String[] args) {
+    	
+    	try {
+            restaurante = new Restaurante();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IngredienteRepetidoException e) {
+            e.printStackTrace();
+        } catch (ProductoRepetidoException e) {
+            e.printStackTrace();
+        }
+    	
+    	boolean seguir = true;
 
-        boolean seguir = true;
         int opcion_seleccionada = 0;
         while (seguir) {
             mostrarOpciones();

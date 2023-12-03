@@ -20,3 +20,5 @@ papas en casco grandes;6900
 agua cristal sin gas;5000
 agua cristal con gas;5000
 gaseosa;5000
+hanni;145000
+hanni;145000

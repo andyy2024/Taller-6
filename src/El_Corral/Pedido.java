@@ -1,13 +1,16 @@
 package El_Corral;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Pedido implements Producto {
+import Exceptions.ValorMaximoException;
 
-    private ArrayList<Producto> listaProductos;
+public class Pedido  {
+
+    public ArrayList<Producto> listaProductos;
 
     public int idPedido;
 
@@ -21,15 +24,11 @@ public class Pedido implements Producto {
         this.listaProductos = new ArrayList<>();
     }
 
-    public int getIdPedido() {
-        return 7;
-    }
+    public void agregarProducto(Producto nuevoItem) throws ValorMaximoException {
 
-    public void agregarProducto(Producto nuevoItem) {
-
-        int precioRelaivo = getPrecioTotalPedido() + nuevoItem.getPrecio();
-        if (precioRelativo > 150000){
-            throws new ValorMaximoException("El producto " + nuevoProducto.getNombre() + " supera el tope de precio")
+        double precioRelativo = getPrecioNetoPedido() + getPrecioIVAPedido(idPedido) + nuevoItem.getPrecio();
+        if (precioRelativo > 150000) {
+            throw new ValorMaximoException(nuevoItem.getNombre(), nuevoItem.getPrecio());
         }
 
         listaProductos.add(nuevoItem);
@@ -49,10 +48,9 @@ public class Pedido implements Producto {
 
     public double getPrecioTotalPedido(int precioNeto, double precioIVA) {
         return precioIVA + precioNeto;
-
     }
 
-    public void generarTextoFactura() {
+    public File generarTextoFactura() {
 
         String filePath = ".//src//Facturas//" + idPedido + ".txt";
 
@@ -72,9 +70,7 @@ public class Pedido implements Producto {
             for (Producto producto : listaProductos) {
                 bufferedWriter.newLine();
                 bufferedWriter.newLine();
-                bufferedWriter.write("    " + producto.getNombre());
-                bufferedWriter.newLine();
-                bufferedWriter.write("    --->" + producto.getPrecio());
+                bufferedWriter.write(producto.generarTextoFactura());
             }
             int costoNeto = getPrecioNetoPedido();
             double IVA = getPrecioIVAPedido(costoNeto);
@@ -91,18 +87,7 @@ public class Pedido implements Producto {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-    }
-
-    @Override
-    public double getPrecio() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPrecio'");
-    }
-
-    @Override
-    public String getNombre() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getNombre'");
+        
+    return new File(filePath);
     }
 }
