@@ -1,0 +1,24 @@
+-------------------------
+FACTURA No. 1
+PRODUCTOS
+Nombre: asdf
+Direccion: asdf
+
+    papas grandes
+    --->6900
+
+    combo especial
+    --->32085.0
+
+    combo especial
+    --->32085.0
+
+    combo especial
+    --->32085.0
+
+    combo especial
+    --->32085.0
+Costo Neto 135240
+IVA 25695.6
+Costo Total 160935.6
+-------------------------

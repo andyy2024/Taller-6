@@ -19,7 +19,7 @@ public class ComboTest {
 		mapaDePrecios.put("especial",24000.0);
 		mapaDePrecios.put("papas medianas",5500.0);
 		mapaDePrecios.put("gaseosa",5000.0);
-		combo = new Combo("combo especial",7.0,"especial","papas medianas","gaseosa",mapaDePrecios);
+		combo = new Combo("combo especial",7.0,"especial","gaseosa","papas medianas",mapaDePrecios);
 	}
 	
 	@Test
@@ -32,6 +32,21 @@ public class ComboTest {
 	void testPrecio() {
 		double precioReal = 32085.0;
 		assertEquals(precioReal, combo.calcularPrecio(mapaDePrecios),0);
+	}
+	
+	@Test
+	void testBebida(){
+		assertEquals(combo.getBebida(),"gaseosa");
+	}
+	
+	@Test
+	void testPapas(){
+		assertEquals(combo.getPapas(),"papas medianas");
+	}
+	
+	@Test
+	void testHamburguesa(){
+		assertEquals(combo.getHamburguesa(),"especial");
 	}
 	
 	//Los getters no se prueban segun el enunciado

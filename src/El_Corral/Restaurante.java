@@ -26,7 +26,7 @@ public class Restaurante {
 
     public ArrayList<Pedido> pedidos;
 
-    HashMap<String, Double> mapaDePrecios;
+    public HashMap<String, Double> mapaDePrecios;
 
     public Restaurante() throws IOException, IngredienteRepetidoException, ProductoRepetidoException {
         this.menu = new ArrayList<>();

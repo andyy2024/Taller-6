@@ -22,40 +22,40 @@ import Exceptions.ValorMaximoException;
 public class Aplicacion {
 
     // Colorsitos normales
-    private static final String BLACK = "\u001B[30m";
-    private static final String RED = "\u001B[31m";
-    private static final String GREEN = "\u001B[32m";
-    private static final String YELLOW = "\u001B[33m";
-    private static final String BLUE = "\u001B[34m";
-    private static final String MAGENTA = "\u001B[35m";
-    private static final String CYAN = "\u001B[36m";
-    private static final String WHITE = "\u001B[37m";
+    public static final String BLACK = "\u001B[30m";
+    public static final String RED = "\u001B[31m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String YELLOW = "\u001B[33m";
+    public static final String BLUE = "\u001B[34m";
+    public static final String MAGENTA = "\u001B[35m";
+    public static final String CYAN = "\u001B[36m";
+    public static final String WHITE = "\u001B[37m";
 
     // Colorsitos brillantes ^-^
-    private static final String BRIGHT_BLACK = "\u001B[30;1m";
-    private static final String BRIGHT_RED = "\u001B[31;1m";
-    private static final String BRIGHT_GREEN = "\u001B[32;1m";
-    private static final String BRIGHT_YELLOW = "\u001B[33;1m";
-    private static final String BRIGHT_BLUE = "\u001B[34;1m";
-    private static final String BRIGHT_MAGENTA = "\u001B[35;1m";
-    private static final String BRIGHT_CYAN = "\u001B[36;1m";
-    private static final String BRIGHT_WHITE = "\u001B[37;1m";
+    public static final String BRIGHT_BLACK = "\u001B[30;1m";
+    public static final String BRIGHT_RED = "\u001B[31;1m";
+    public static final String BRIGHT_GREEN = "\u001B[32;1m";
+    public static final String BRIGHT_YELLOW = "\u001B[33;1m";
+    public static final String BRIGHT_BLUE = "\u001B[34;1m";
+    public static final String BRIGHT_MAGENTA = "\u001B[35;1m";
+    public static final String BRIGHT_CYAN = "\u001B[36;1m";
+    public static final String BRIGHT_WHITE = "\u001B[37;1m";
 
     // Estilos
-    private static final String BOLD = "\u001B[1m";
-    private static final String UNDERLINE = "\u001B[4m";
-    private static final String ITALIC = "\u001B[3m";
+    public static final String BOLD = "\u001B[1m";
+    public static final String UNDERLINE = "\u001B[4m";
+    public static final String ITALIC = "\u001B[3m";
 
     // Reset
     private static final String RESET = "\u001B[0m";
 
     static Restaurante restaurante;
 
-    static String Colorear(String text, String color) {
+    public static String Colorear(String text, String color) {
         return color + text + RESET;
     }
 
-    static String Colorear(String text, String color, String estilo) {
+    public static String Colorear(String text, String color, String estilo) {
         return estilo + color + text + RESET;
     }
 
@@ -100,7 +100,6 @@ public class Aplicacion {
                 break;
             }
         }
-
     }
 
     static void productos() {
@@ -132,7 +131,7 @@ public class Aplicacion {
                     System.out.println("Bien! se agregó " + menu.get(respuesta).getNombre() + " a tu pedido!");
 
                 } catch (ValorMaximoException e) {
-                    System.out.println(e.getMessage());
+                	e.printStackTrace();
                 }
             }
 
@@ -171,7 +170,7 @@ public class Aplicacion {
                     System.out.println("Bien! se agregó " + menu.get(respuesta).getNombre() + " a tu pedido!");
 
                 } catch (ValorMaximoException e) {
-                    System.out.println(e.getMessage());
+                	e.printStackTrace();
                 }
             }
 
@@ -211,7 +210,7 @@ public class Aplicacion {
                         System.out.println(
                                 "Bien! se agregó adicion de " + menu.get(respuesta).getNombre() + " a tu pedido!");
                     } catch (ValorMaximoException e) {
-                        System.out.println(e.getMessage());
+                    	e.printStackTrace();
                     }
 
                 } else if (respuesta2 == 0) {
@@ -222,8 +221,7 @@ public class Aplicacion {
                                 .println("Bien! se agregó un sin " + menu.get(respuesta).getNombre() + " a tu pedido!");
 
                     } catch (ValorMaximoException e) {
-                        System.out.println(e.getMessage());
-
+                    	e.printStackTrace();
                     }
                 } else {
                     System.out.println("\nSelecciona una opcion valida");
@@ -275,17 +273,21 @@ public class Aplicacion {
 
     public static void main(String[] args) {
 
+    	boolean seguir = true;
+    	
         try {
             restaurante = new Restaurante();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (IngredienteRepetidoException e) {
-            e.printStackTrace();
+        	seguir = false;
+        	e.printStackTrace();
+            System.out.println("\n(!) TIENE QUE ELIMINAR EL INGREDIENTE REPETIDO DEL .TXT Y REINICIAR EL PROGRAMA\n");
         } catch (ProductoRepetidoException e) {
-            e.printStackTrace();
+        	seguir = false;
+        	e.printStackTrace();
+            System.out.println("\n(!) TIENE QUE ELIMINAR EL PRODUCTO REPETIDO DEL .TXT Y REINICIAR EL PROGRAMA\n");
         }
-
-        boolean seguir = true;
 
         int opcion_seleccionada = 0;
         while (seguir) {

@@ -24,7 +24,7 @@ public class ProductoMenu implements Producto {
     	return "    " + nombre + "\n" + "    --->" + precioBase;
     }
     
-    @Override
+    @Override //Este metodo obviamente no lo probamos
     public boolean equals(Object obj) {
     	
         // Check if the object is null or of a different class
